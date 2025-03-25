@@ -2,37 +2,35 @@ package com.example.thimodule4.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "giao_dich")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GiaoDich {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "ma_giao_dich", unique = true, nullable = false)
+    private String maGiaoDich;
 
     @ManyToOne
-    @JoinColumn(name = "khach_hang_id", nullable = false)
+    @JoinColumn(name = "ma_khach_hang", nullable = false)
     private KhachHang khachHang;
 
-    @Column(name = "ngay_giao_dich", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date ngayGiaoDich;
 
-    @Column(name = "loai_dich_vu", nullable = false)
-    private String loaiDichVu;
+    @ManyToOne
+    @JoinColumn(name = "ma_loai_dich_vu", nullable = false)
+    private LoaiDichVu loaiDichVu;
 
-    @Column(name = "don_gia", nullable = false)
+    @Column(nullable = false)
     private Double donGia;
 
-    @Column(name = "dien_tich", nullable = false)
+    @Column(nullable = false)
     private Double dienTich;
 }

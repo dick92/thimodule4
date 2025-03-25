@@ -6,8 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
-@Table(name = "khach_hang")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,14 +16,16 @@ import lombok.Setter;
 public class KhachHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "ten_khach_hang", nullable = false)
+    private Long maKhachHang;
+    @Column(nullable = false)
     private String tenKhachHang;
 
-    @Column(name = "so_dien_thoai", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String soDienThoai;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<GiaoDich> giaoDichs;
 }
